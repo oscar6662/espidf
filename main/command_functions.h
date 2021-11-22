@@ -1,0 +1,21 @@
+char error[256]; //variable used to log errors.
+void print_mac();
+void print_pong ();
+void print_id ();
+void print_version ();
+void print_error ();
+bool get_variable_by_name (const char * name, int * returnvalue);
+void set_variable_by_name (const char * name, int value);
+void store_variable(const char* name, char * value);
+void print_variable(const char * variable);
+void add (const char * first, const char * second);
+void factor_no_arguments (int counter, struct Stack* stack);
+void factor_with_arguments (int counter, const char * first);
+void ps();
+void result(const char * id);
+void bt_connect (const char * first, const char *second);
+void bt_status();
+void bt_close();
+void data_create(const char * first, const char * second);
+void data_destroy(const char * first);
+void data_info(const char * first);

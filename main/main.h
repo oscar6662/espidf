@@ -1,0 +1,1 @@
+void check_what_came_in (char * string);

@@ -370,7 +370,6 @@ C:/Users/oscar/Documents/TOL103/sample_project/build/esp-idf/bootloader/CMakeFil
 C:/Users/oscar/Documents/TOL103/sample_project/build/esp-idf/bootloader/CMakeFiles/edit_cache.dir
 C:/Users/oscar/Documents/TOL103/sample_project/build/esp-idf/bootloader/CMakeFiles/rebuild_cache.dir
 C:/Users/oscar/Documents/TOL103/sample_project/build/esp-idf/bootloader/CMakeFiles/install/strip.dir
-C:/Users/oscar/Documents/TOL103/sample_project/build/esp-idf/bt/CMakeFiles/__idf_bt.dir
 C:/Users/oscar/Documents/TOL103/sample_project/build/esp-idf/bt/CMakeFiles/install/local.dir
 C:/Users/oscar/Documents/TOL103/sample_project/build/esp-idf/bt/CMakeFiles/install.dir
 C:/Users/oscar/Documents/TOL103/sample_project/build/esp-idf/bt/CMakeFiles/edit_cache.dir

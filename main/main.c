@@ -7,13 +7,15 @@
 #include "Stack.h"
 #include "serial_out.h"
 #include "command_functions.h"
-#include "wifi.h"
+#include "net_layer.h"
 #include "nvs_flash.h"
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_now.h"
 #include "esp_netif.h"
 #include "esp_log.h"
+#include "network.h"
+#include "collatz.h"
 
 
 #define MSG_BUFFER_LENGTH 256
@@ -22,13 +24,14 @@
 #define HIGH_PRIORITY  4  
 #define LOW_PRIORITY   1  
 #define MAIN_PRIORITY  0  
+
 struct Stack* stack;
 int counter;
 char query[MSG_BUFFER_LENGTH];
 const TickType_t read_delay = 50 / portTICK_PERIOD_MS;
 
 
-void check_what_came_in(void *pvParameter) {
+void check_what_came_in() {
 	char * string_with_arguments = strtok(query," ");
 	if (strlen(query) > 0) {
 		if (strcasecmp(query, "ping") == 0) {
@@ -79,12 +82,6 @@ void check_what_came_in(void *pvParameter) {
     } else if (strcasecmp(string_with_arguments,"data_info") == 0) {
       char * first_argument = strtok(NULL," ");
       data_info(first_argument);
-    } else if (strcasecmp(query,"net_locate") == 0) {
-      net_locate();
-    } else if (strcasecmp(query,"net_status") == 0) {
-      net_status();
-    } else if (strcasecmp(query,"net_reset") == 0) {
-      net_reset();
     } else if (strcasecmp(query,"net_table") == 0) {
       net_table();
     } else {
@@ -152,15 +149,7 @@ void main_task(void *pvParameter) {
 			else if (consecutive_whitespace || trailing_whitespace) {
 				serial_out("unrecognized argument\n");
 			} else {
-				xTaskCreatePinnedToCore(
-					&check_what_came_in,
-					"check_what_came_in",
-					8192,
-					NULL,
-					HIGH_PRIORITY,
-					NULL,
-					tskNO_AFFINITY 
-				);
+        check_what_came_in();
 			}
 		}
 	}
@@ -168,12 +157,32 @@ void main_task(void *pvParameter) {
 
 
 void app_main(void) {
+  uint8_t local_mac[6];
+  esp_read_mac(local_mac, ESP_MAC_WIFI_STA);
+  uint8_t id = 0;
+  int root = 0;
+  if (local_mac[1] == 0xAE) {
+      // Black device:
+      id = 0x17;
+      root = 0;
+  } else if (local_mac[1] == 0x6F) {
+      // Yellow device.
+      id = 0x16;
+      root = 1; 
+  } else {
+      // If this error is emitted, you have probably forgotten to customize this
+      //  function to match with _your_ device MAC addresses.
+      ESP_LOGE("APP_MAIN", "Could not determine Node-id.");
+      while (1) {
+          vTaskDelay(1000 / portTICK_RATE_MS);
+      }
+  }
 	stack = createStack(32);
-  esp_log_level_set("wifi", ESP_LOG_NONE);  // disable the default wifi logging
   ESP_ERROR_CHECK(nvs_flash_init());    
-  wifi_init();      
-  espnow_init();    
+  net_init(id, root);
 	counter = 0;
+
+  collatz_init( root );
 
 	xTaskCreate(
 		&main_task,	   

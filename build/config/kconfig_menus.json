@@ -2518,10 +2518,7 @@
                                 "help": "BR/EDR ACL maximum connections of bluetooth controller.\nEach connection uses 1.2KB static DRAM whenever the BT controller is enabled.",
                                 "id": "BTDM_CTRL_BR_EDR_MAX_ACL_CONN",
                                 "name": "BTDM_CTRL_BR_EDR_MAX_ACL_CONN",
-                                "range": [
-                                    1,
-                                    7
-                                ],
+                                "range": null,
                                 "title": "BR/EDR ACL Max Connections",
                                 "type": "int"
                             },
@@ -2531,10 +2528,7 @@
                                 "help": "BR/EDR Synchronize maximum connections of bluetooth controller.\nEach connection uses 2KB static DRAM whenever the BT controller is enabled.",
                                 "id": "BTDM_CTRL_BR_EDR_MAX_SYNC_CONN",
                                 "name": "BTDM_CTRL_BR_EDR_MAX_SYNC_CONN",
-                                "range": [
-                                    0,
-                                    3
-                                ],
+                                "range": null,
                                 "title": "BR/EDR Sync(SCO/eSCO) Max Connections",
                                 "type": "int"
                             },
@@ -6636,10 +6630,7 @@
                                 "help": "Maximum BT/BLE connection count",
                                 "id": "BT_ACL_CONNECTIONS",
                                 "name": "BT_ACL_CONNECTIONS",
-                                "range": [
-                                    1,
-                                    7
-                                ],
+                                "range": null,
                                 "title": "BT/BLE MAX ACL CONNECTIONS(1~7)",
                                 "type": "int"
                             },
@@ -6709,10 +6700,7 @@
                                 "help": "Bluetooth Connection establishment maximum time, if connection time exceeds this value, the connection\nestablishment fails, ESP_GATTC_OPEN_EVT or ESP_GATTS_OPEN_EVT is triggered.",
                                 "id": "BT_BLE_ESTAB_LINK_CONN_TOUT",
                                 "name": "BT_BLE_ESTAB_LINK_CONN_TOUT",
-                                "range": [
-                                    1,
-                                    60
-                                ],
+                                "range": null,
                                 "title": "Timeout of BLE connection establishment",
                                 "type": "int"
                             },
